@@ -36,21 +36,21 @@ class ProfileModel: ObservableObject {
         
         static var transferRepresentation: some TransferRepresentation {
             DataRepresentation(importedContentType: .image) { data in
-                #if canImport(AppKit)
+            #if canImport(AppKit)
                 guard let nsImage = NSImage(data: data) else {
                     throw TransferError.importFailed
                 }
                 let image = Image(nsImage: nsImage)
                 return ProfileImage(image: image)
-                #elseif canImport(UIKit)
+            #elseif canImport(UIKit)
                 guard let uiimage = UIImage(data: data) else {
                     throw TransferError.importFailed
                 }
-                let image = Image(uiimage: uiimage)
+                let image = Image(uiImage: uiimage)
                 return ProfileImage(image: image)
-                #else
+            #else
                 throw TransferError.importFailed
-                #endif
+            #endif
             }
         }
         
